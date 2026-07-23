@@ -131,7 +131,7 @@ Universal-RAG-Chatbot
 ## 1. Clone Repository
 
 ```
-git clone <repository-url>
+git clone (https://github.com/mujeebkhan77/universal-rag-chatbot)
 
 cd Universal-RAG-Chatbot
 ```
