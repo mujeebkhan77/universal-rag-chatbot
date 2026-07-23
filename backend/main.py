@@ -41,14 +41,14 @@ def load_rag():
     global embedding, vectorstore, retriever, llm
 
     if retriever is None:
-        embedding = get_embeddings()
+        # embedding = get_embeddings()
 
-        vectorstore = load_vectorstore(embedding)
+        # vectorstore = load_vectorstore(embedding)
 
-        retriever = vectorstore.as_retriever(
-            search_type=SEARCH_TYPE,
-            search_kwargs={"k": TOP_K}
-        )
+        # retriever = vectorstore.as_retriever(
+        #     search_type=SEARCH_TYPE,
+        #     search_kwargs={"k": TOP_K}
+        # )
 
         llm = get_llm()
 
@@ -65,13 +65,7 @@ def home():
 
 @app.post("/chat")
 def chat(request: ChatRequest):
-   retriever, llm, _ = load_rag()
-
-   result = ask_question(
-      request.question,
-      retriever,
-      llm
-   )
+    return {"message": "Server is running"}
 
 class YoutubeRequest(BaseModel):
     url: str
