@@ -31,17 +31,28 @@ app.add_middleware(
 UPLOAD_FOLDER = Path("uploads/pdf")
 UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
 
-embedding = get_embeddings()
+embedding = None
+vectorstore = None
+retriever = None
+llm = None
 
-vectorstore = load_vectorstore(embedding)
 
-retriever = vectorstore.as_retriever(
-    search_type=SEARCH_TYPE,
-    search_kwargs={"k": TOP_K}
-)
+def load_rag():
+    global embedding, vectorstore, retriever, llm
 
-llm = get_llm()
+    if retriever is None:
+        embedding = get_embeddings()
 
+        vectorstore = load_vectorstore(embedding)
+
+        retriever = vectorstore.as_retriever(
+            search_type=SEARCH_TYPE,
+            search_kwargs={"k": TOP_K}
+        )
+
+        llm = get_llm()
+
+    return retriever, llm, embedding
 
 class ChatRequest(BaseModel):
     question: str
@@ -54,14 +65,13 @@ def home():
 
 @app.post("/chat")
 def chat(request: ChatRequest):
-    result = ask_question(
-        request.question,
-        retriever,
-        llm
-    )
+   retriever, llm, _ = load_rag()
 
-    return result
-
+   result = ask_question(
+      request.question,
+      retriever,
+      llm
+   )
 
 class YoutubeRequest(BaseModel):
     url: str
