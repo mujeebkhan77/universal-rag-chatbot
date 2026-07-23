@@ -133,7 +133,7 @@ Universal-RAG-Chatbot
 ```
 git clone (https://github.com/mujeebkhan77/universal-rag-chatbot)
 
-cd Universal-RAG-Chatbot
+cd Universal-Rag-chatbot
 ```
 
 ---
@@ -277,10 +277,10 @@ Response + Sources
 
 # Environment Variables
 
-Create a `.env` file inside backend:
+Created a `.env` file inside backend:
 
 ```
-GOOGLE_API_KEY=your_api_key_here
+GOOGLE_API_KEY= API_KEY
 ```
 
 ---
