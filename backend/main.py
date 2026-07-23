@@ -136,3 +136,21 @@ def delete_doc(document_id: str):
         "success": True,
         "message": "Document deleted successfully"
     }  
+    
+    
+print("STEP 1")
+
+embedding = get_embeddings()
+print("STEP 2")
+
+vectorstore = load_vectorstore(embedding)
+print("STEP 3")
+
+retriever = vectorstore.as_retriever(
+    search_type=SEARCH_TYPE,
+    search_kwargs={"k": TOP_K}
+)
+print("STEP 4")
+
+llm = get_llm()
+print("STEP 5")    
